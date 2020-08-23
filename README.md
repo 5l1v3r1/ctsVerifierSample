@@ -9,3 +9,6 @@
 - project: Android Studio project files.
 - ctsVerifier: The source code, same with that in the [original CTS Verifier](https://cs.android.com/android/platform/superproject/+/master:cts/apps/CtsVerifier/)
 - libs: Pre-built library. 
+  - Depends on prebuild libs:
+     - [sensor library](https://cs.android.com/android/platform/superproject/+/master:cts/tests/sensor/)
+     - compatibility-device-util-axt 
