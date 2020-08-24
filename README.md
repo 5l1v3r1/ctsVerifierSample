@@ -16,7 +16,7 @@
 ## Create prebuilt libs from Android
 1. [Building and running CTS](https://source.android.com/compatibility/cts/development#building-and-running-cts)
 2. Build the libaries
-   - make j8 cts-sensors-tests compatibility-device-util-axt
+   - make j8 cts-sensors-tests compatibility-device-util-axt android.test.base
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/cts-sensors-tests_intermediates/javalib.jar ~/Downloads/cts-sensors-tests.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/compatibility-device-util-axt_intermediates/javalib.jar ~/Downloads/compatibility-device-util-axt.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/android.test.base_static_intermediates/javalib.jar ~/Downloads/android.test.base.jar
