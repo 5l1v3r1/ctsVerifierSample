@@ -20,6 +20,7 @@
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/cts-sensors-tests_intermediates/javalib.jar ~/Downloads/cts-sensors-tests.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/compatibility-device-util-axt_intermediates/javalib.jar ~/Downloads/compatibility-device-util-axt.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/android.test.base_static_intermediates/javalib.jar ~/Downloads/android.test.base.jar
+3. Tests titles are written in manifest.xml, populated by ManifestTestListAdapter
 
 # To remove dependencies
 - SensorFeaturesDeactivator.java:142: error: cannot find symbol [Settings.Secure.DOZE_ENABLED](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/provider/Settings.java;l=7741?q=Settings.Secure.DOZE_ENABLED&ss=android)
