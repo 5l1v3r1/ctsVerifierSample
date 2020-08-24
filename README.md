@@ -19,8 +19,11 @@
    - make j8 cts-sensors-tests compatibility-device-util-axt
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/cts-sensors-tests_intermediates/javalib.jar ~/Downloads/cts-sensors-tests.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/compatibility-device-util-axt_intermediates/javalib.jar ~/Downloads/compatibility-device-util-axt.jar
+   - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/android.test.base_static_intermediates/javalib.jar ~/Downloads/android.test.base.jar
+
 # To remove dependencies
 - SensorFeaturesDeactivator.java:142: error: cannot find symbol [Settings.Secure.DOZE_ENABLED](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/provider/Settings.java;l=7741?q=Settings.Secure.DOZE_ENABLED&ss=android)
-- 
+- cts-sensors-test depends on android.test.AndroidTestCase, which is built in android.test.base_static
+- cts-sensors-test and compatibility-device-util-axt both contain org.mockito.plugins.MockMaker, causing error: More than one file was found with OS independent path 'mockito-extensions/org.mockito.plugins.MockMaker'.
 
 
