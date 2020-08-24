@@ -1,0 +1,3 @@
+configurations.maybeCreate("default")
+def ctsSensorsTestsLib = '../../libs/cts-sensors-tests.jar'
+artifacts.add("default", file(ctsSensorsTestsLib))

@@ -1,0 +1,3 @@
+configurations.maybeCreate("default")
+def androidTestBase = '../../libs/android.test.base.jar'
+artifacts.add("default", file(androidTestBase))

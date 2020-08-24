@@ -1,0 +1,4 @@
+include ':cts-sensors-tests'
+include ':android.test.base'
+include ':app'
+rootProject.name = "CTS Verifier sample"
