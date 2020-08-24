@@ -7,6 +7,10 @@
 
 # Architecture
 - project: Android Studio project files.
+  - Entry point TestListActivity.
+  - Save report by ReportExporter.
+  - CTS report [ResultHandler](https://cs.android.com/android/platform/superproject/+/master:test/suite_harness/common/util/src/com/android/compatibility/common/util/ResultHandler.java;l=57?q=ResultHandler&sq=&ss=android)
+     - Re-use CTS format, from compatibility-device-util-axt
 - ctsVerifier: The source code, same with that in the [original CTS Verifier](https://cs.android.com/android/platform/superproject/+/master:cts/apps/CtsVerifier/)
 - libs: Pre-built library. 
   - Depends on prebuild libs:
@@ -27,4 +31,7 @@
 - cts-sensors-test depends on android.test.AndroidTestCase, which is built in android.test.base_static
 - cts-sensors-test and compatibility-device-util-axt both contain org.mockito.plugins.MockMaker, causing error: More than one file was found with OS independent path 'mockito-extensions/org.mockito.plugins.MockMaker'.
 
-
+# ToDo 
+- Cannot save report on user build.
+  - Write result to [external storage](https://developer.android.com/training/data-storage/shared/documents-files#create-file).
+- Add to send report.
