@@ -31,8 +31,7 @@
 # Refactor
 ## Unable to save report on user build
 Fix: [android:requestLegacyExternalStorage=" true"](https://android.googlesource.com/platform/cts/+/018f43b6addeecf25e11193c9a1244b79a68528f%5E%21/#F0)
-- Check Android 9 and 10 for problem
-
+- For Android 9 or API<29 this will not be a problem, otherwise this will have to be present
 
 # Unbundleing
 These are the depenencies to be worked around and clean up for fully unbundle.
