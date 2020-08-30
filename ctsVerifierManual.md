@@ -10,4 +10,4 @@
 # Find the report
 - By defalt, the report is under Download/verifierReports
 # Current problems
-- When rotating the phone on it's x axis, there is a chance to fail. Other tests seems fine.
+- When rotating the phone on it's y axis, there is a chance to fail. Other tests seems fine.
