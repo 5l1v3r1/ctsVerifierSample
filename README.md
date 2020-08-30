@@ -28,11 +28,19 @@
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/android.test.base_static_intermediates/javalib.jar ~/Downloads/android.test.base.jar
 3. Tests titles are written in manifest.xml, populated by ManifestTestListAdapter
 
-# To remove dependencies
+# Refactor
+## Unable to save report on user build
+Fix: [android:requestLegacyExternalStorage=" true"](https://android.googlesource.com/platform/cts/+/018f43b6addeecf25e11193c9a1244b79a68528f%5E%21/#F0)
+- Check Android 9 and 10 for problem
+
+
+# Unbundleing
+These are the depenencies to be worked around and clean up for fully unbundle.
 - SensorFeaturesDeactivator.java:142: error: cannot find symbol [Settings.Secure.DOZE_ENABLED](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/provider/Settings.java;l=7741?q=Settings.Secure.DOZE_ENABLED&ss=android)
 - cts-sensors-test depends on android.test.AndroidTestCase, which is built in android.test.base_static
 - cts-sensors-test and compatibility-device-util-axt both contain org.mockito.plugins.MockMaker, causing error: More than one file was found with OS independent path 'mockito-extensions/org.mockito.plugins.MockMaker'.
   - Open the jar and delete mockito-extensions folder in either one.
+- To unbundle pre-built libary
 
 # ToDo 
 - Cannot save report on user build.
