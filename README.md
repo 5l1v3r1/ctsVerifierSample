@@ -42,6 +42,4 @@ These are the depenencies to be worked around and clean up for fully unbundle.
 - To unbundle pre-built libary
 
 # ToDo 
-- Cannot save report on user build.
-  - Write result to [external storage](https://developer.android.com/training/data-storage/shared/documents-files#create-file).
 - Add to send report.
