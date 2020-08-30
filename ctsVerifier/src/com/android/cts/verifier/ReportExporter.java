@@ -68,9 +68,9 @@ class ReportExporter extends AsyncTask<Void, Void, String> {
     private final long END_MS = START_MS;
 
     private final Context mContext;
-    private final TestListAdapter mAdapter;
+    private final com.android.cts.verifier.TestListAdapter mAdapter;
 
-    ReportExporter(Context context, TestListAdapter adapter) {
+    ReportExporter(Context context, com.android.cts.verifier.TestListAdapter adapter) {
         this.mContext = context;
         this.mAdapter = adapter;
     }
@@ -83,7 +83,7 @@ class ReportExporter extends AsyncTask<Void, Void, String> {
         }
         IInvocationResult result;
         try {
-            TestResultsReport report = new TestResultsReport(mContext, mAdapter);
+            com.android.cts.verifier.TestResultsReport report = new com.android.cts.verifier.TestResultsReport(mContext, mAdapter);
             result = report.generateResult();
         } catch (Exception e) {
             LOG.log(Level.WARNING, "Couldn't create test results report", e);
@@ -94,18 +94,23 @@ class ReportExporter extends AsyncTask<Void, Void, String> {
         File verifierReportsDir = new File(externalStorageDirectory, REPORT_DIRECTORY);
         verifierReportsDir.mkdirs();
 
-        String suiteName = Version.getMetadata(mContext, SUITE_NAME_METADATA_KEY);
+        // Dump in downloads to test
+        File downloadStorageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File downloadReportsDir = new File(downloadStorageDirectory, REPORT_DIRECTORY);
+        downloadReportsDir.mkdirs();
+
+        String suiteName = com.android.cts.verifier.Version.getMetadata(mContext, SUITE_NAME_METADATA_KEY);
         // create a temporary directory for this particular report
-        File tempDir = new File(verifierReportsDir, getReportName(suiteName));
+        File tempDir = new File(downloadReportsDir, getReportName(suiteName));
         tempDir.mkdirs();
 
         // create a File object for a report ZIP file
         File reportZipFile = new File(
-                verifierReportsDir, getReportName(suiteName) + ZIP_EXTENSION);
+                downloadReportsDir, getReportName(suiteName) + ZIP_EXTENSION);
 
         try {
             // Serialize the report
-            String versionName = Version.getVersionName(mContext);
+            String versionName = com.android.cts.verifier.Version.getVersionName(mContext);
             ResultHandler.writeResults(suiteName, versionName, SUITE_PLAN, SUITE_BUILD,
                     result, tempDir, START_MS, END_MS, REFERENCE_URL, LOG_URL,
                     COMMAND_LINE_ARGS);

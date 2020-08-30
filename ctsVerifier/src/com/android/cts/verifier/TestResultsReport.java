@@ -18,6 +18,7 @@ package com.android.cts.verifier;
 
 import android.content.Context;
 import android.os.Build;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Xml;
 
@@ -76,9 +77,9 @@ class TestResultsReport {
 
     private final Context mContext;
 
-    private final TestListAdapter mAdapter;
+    private final com.android.cts.verifier.TestListAdapter mAdapter;
 
-    TestResultsReport(Context context, TestListAdapter adapter) {
+    TestResultsReport(Context context, com.android.cts.verifier.TestListAdapter adapter) {
         this.mContext = context;
         this.mAdapter = adapter;
     }
@@ -111,7 +112,7 @@ class TestResultsReport {
         DevicePropertyInfo devicePropertyInfo = new DevicePropertyInfo(Build.CPU_ABI,
                 Build.CPU_ABI2, abis, abis32, abis64, Build.BOARD, Build.BRAND, Build.DEVICE,
                 Build.FINGERPRINT, null, Build.ID, Build.MANUFACTURER, Build.MODEL, Build.PRODUCT,
-                referenceFingerprint, Build.getSerial(), Build.TAGS, Build.TYPE, versionBaseOs,
+                referenceFingerprint, Settings.Secure.ANDROID_ID, Build.TAGS, Build.TYPE, versionBaseOs,
                 Build.VERSION.RELEASE, Integer.toString(Build.VERSION.SDK_INT),
                 versionSecurityPatch, Build.VERSION.INCREMENTAL);
 
@@ -145,7 +146,7 @@ class TestResultsReport {
                     currentTestResult.setReportLog(reportLog);
                 }
 
-                TestResultHistoryCollection historyCollection = mAdapter.getHistoryCollection(i);
+                com.android.cts.verifier.TestResultHistoryCollection historyCollection = mAdapter.getHistoryCollection(i);
                 if (historyCollection != null) {
                     // Get non-terminal prefixes.
                     Set<String> prefixes = new HashSet<>();
@@ -180,13 +181,13 @@ class TestResultsReport {
 
     private TestStatus getTestResultStatus(int testResult) {
         switch (testResult) {
-            case TestResult.TEST_RESULT_PASSED:
+            case com.android.cts.verifier.TestResult.TEST_RESULT_PASSED:
                 return TestStatus.PASS;
 
-            case TestResult.TEST_RESULT_FAILED:
+            case com.android.cts.verifier.TestResult.TEST_RESULT_FAILED:
                 return TestStatus.FAIL;
 
-            case TestResult.TEST_RESULT_NOT_EXECUTED:
+            case com.android.cts.verifier.TestResult.TEST_RESULT_NOT_EXECUTED:
                 return null;
 
             default:
