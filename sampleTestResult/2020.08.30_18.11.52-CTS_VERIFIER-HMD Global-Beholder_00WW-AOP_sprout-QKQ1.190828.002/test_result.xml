@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no' ?><?xml-stylesheet type="text/xsl" href="compatibility_result.xsl"?>
+<Result start="1598836312403" end="1598836312403" start_display="Sun Aug 30 18:11:52 PDT 2020" end_display="Sun Aug 30 18:11:52 PDT 2020" suite_name="CTS_VERIFIER" suite_version="9.0_r12" suite_plan="verifier" suite_build_number="0" report_version="5.0" command_line_args="" devices="" host_name="localhost" os_name="Linux" os_version="4.9.186-perf+" os_arch="aarch64" java_vendor="The Android Project" java_version="0">
+  <Build build_abis_64="arm64-v8a" build_manufacturer="HMD Global" build_abis_32="armeabi-v7a,armeabi" build_product="Beholder_00WW" build_brand="Nokia" build_board="SDM845" build_serial="android_id" build_version_security_patch="2020-08-01" build_fingerprint="Nokia/Beholder_00WW/AOP_sprout:10/QKQ1.190828.002/00WW_5_25E:user/release-keys" build_abis="arm64-v8a,armeabi-v7a,armeabi" build_version_sdk="29" build_device="AOP_sprout" build_abi="arm64-v8a" build_id="QKQ1.190828.002" build_model="Nokia 9" build_abi2="" build_version_release="10" build_version_incremental="00WW_5_25E" build_version_base_os="Nokia/Beholder_00WW/AOP_sprout:10/QKQ1.190828.002/00WW_5_25A:user/release-keys" build_type="user" build_tags="release-keys" />
+  <Summary pass="1" failed="0" modules_done="1" modules_total="1" />
+  <Module name="CtsVerifier" abi="noabi" runtime="0" done="true" pass="1">
+    <TestCase name="manualTests">
+      <Test result="pass" name="com.android.cts.verifier.sensors.GyroscopeMeasurementTestActivity">
+        <RunHistory>
+          <Run start="1598825481846" end="1598825547622" />
+          <Run start="1598834928491" end="1598835175620" />
+          <Run start="1598818429828" end="1598818706341" />
+          <Run start="1598835880209" end="1598836197004" />
+          <Run start="1598825388729" end="1598825480889" />
+        </RunHistory>
+      </Test>
+    </TestCase>
+  </Module>
+</Result>
