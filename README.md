@@ -43,3 +43,6 @@ These are the depenencies to be worked around and clean up for fully unbundle.
 
 # ToDo 
 - Add to send report.
+- Add average run time by hand
+- Add UML milestone test time
+- Optimise
