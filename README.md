@@ -27,6 +27,9 @@
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/compatibility-device-util-axt_intermediates/javalib.jar ~/Downloads/compatibility-device-util-axt.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/android.test.base_static_intermediates/javalib.jar ~/Downloads/android.test.base.jar
 3. Tests titles are written in manifest.xml, populated by ManifestTestListAdapter
+## Manual CTS Verifier
+- Some tests will require multiple tires to pass
+- Average test time is around 4 min
 
 # Refactor
 ## Unable to save report on user build
@@ -43,6 +46,5 @@ These are the depenencies to be worked around and clean up for fully unbundle.
 
 # ToDo 
 - Add to send report.
-- Add average run time by hand
 - Add UML milestone test time
 - Optimise
