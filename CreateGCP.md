@@ -46,7 +46,7 @@
    
    ```repo sync -jN```
 5. [Build and run CTS](https://source.android.com/compatibility/cts/development)
-   - See mk_cts.sh for details
+   - See [mk_cts.sh](https://github.com/Alwin-Lin/ctsVerifierSample/blob/master/tools/mk_cts.sh) for details
    - It assumes Android source tree is under $HOME/ws/android
    - This will output the following to $HOME/ws/libs
       - cts-sensors-tests compatibility-device-util-axt android.test.base_static
