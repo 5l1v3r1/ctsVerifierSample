@@ -29,4 +29,27 @@
 
    ```chmod a+x ~/bin/repo```
 4. [Download from Android source tree](https://source.android.com/setup/build/downloading)
+   - Make a working directory
+   
+   ```mkdir WORKING_DIRECTORY```
+   
+   ```cd WORKING_DIRECTORY```
+   - Configure Git
+   
+   ```git config --global user.name "Your Name"```
+   
+   ```git config --global user.email "you@example.com"```
+   - initalize Repo
+   
+   ```repo init -u https://android.googlesource.com/platform/manifest```
+   - Download from Android source tree, N represents thread count
+   
+   ```repo sync -jN```
 5. [Build and run CTS](https://source.android.com/compatibility/cts/development)
+   - See mk_cts.sh for details
+   - It assumes Android source tree is under $HOME/ws/android
+   - This will output the following to $HOME/ws/libs
+      - cts-sensors-tests compatibility-device-util-axt android.test.base_static
+      - cts-sensors-tests.jar
+      - compatibility-device-util-axt.jar
+      - android.test.base.jar
