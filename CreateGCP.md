@@ -23,5 +23,10 @@
    ``` mkdir ~/bin``` 
    
    ``` PATH=~/bin:$PATH```
+   - Download Repo Launcher and make it executable
+   
+   ```curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo```
+
+   ```chmod a+x ~/bin/repo```
 4. [Download from Android source tree](https://source.android.com/setup/build/downloading)
 5. [Build and run CTS](https://source.android.com/compatibility/cts/development)
