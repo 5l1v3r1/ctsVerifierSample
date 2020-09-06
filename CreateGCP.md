@@ -10,7 +10,7 @@
 1. Setup Python on VM
    - Install Python
    
-   ```sudo apt-get -y install python 3.7```
+   ```sudo apt-get install python```
    - Check Python version
    
    ```which python```
