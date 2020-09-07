@@ -21,6 +21,7 @@
 # Notes
 ## Create prebuilt libs from Android
 1. [Building and running CTS](https://source.android.com/compatibility/cts/development#building-and-running-cts)
+   - [Building CTS on google cloud VM instance](https://github.com/Alwin-Lin/ctsVerifierSample/blob/master/CreateGCP.md)
 2. Build the libaries
    - make -j8 cts-sensors-tests compatibility-device-util-axt android.test.base_static
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/cts-sensors-tests_intermediates/javalib.jar ~/Downloads/cts-sensors-tests.jar
@@ -41,7 +42,7 @@ These are the depenencies to be worked around and clean up for fully unbundle.
 - SensorFeaturesDeactivator.java:142: error: cannot find symbol [Settings.Secure.DOZE_ENABLED](https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/provider/Settings.java;l=7741?q=Settings.Secure.DOZE_ENABLED&ss=android)
 - cts-sensors-test depends on android.test.AndroidTestCase, which is built in android.test.base_static
 - cts-sensors-test and compatibility-device-util-axt both contain org.mockito.plugins.MockMaker, causing error: More than one file was found with OS independent path 'mockito-extensions/org.mockito.plugins.MockMaker'.
-  - Open the jar and delete mockito-extensions folder in either one.
+- Open the jar and delete mockito-extensions folder in either one.
 - To unbundle pre-built libary
 
 # ToDo 
