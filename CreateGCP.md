@@ -58,3 +58,4 @@ Remote desktop prevents process from being terminated if the conection is lost.
    ```
    sudo apt install -f --reinstall python3-minimal
    ```
+- This will have a presistant shell enviroment to build CTS.
