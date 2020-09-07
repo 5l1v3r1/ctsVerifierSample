@@ -50,6 +50,10 @@
       - cts-sensors-tests.jar
       - compatibility-device-util-axt.jar
       - android.test.base.jar
+5. Download built jar
+   - On [VM instances](https://console.cloud.google.com/compute/instances), click on SSH
+   - There will be a cog simbol on the top right after the instance is launched
+   - Click on it, type in the file location and select download
       
 ## Createing remote desktop
 Remote desktop prevents process from being terminated if the conection is lost.
