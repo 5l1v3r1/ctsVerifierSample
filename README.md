@@ -23,13 +23,17 @@
 # Notes
 ## Create prebuilt libs from Android
 1. [Building and running CTS](https://source.android.com/compatibility/cts/development#building-and-running-cts)
+   - Alternativly, you can [build it by a GCP VM](https://github.com/Alwin-Lin/ctsVerifierSample/blob/master/CreateGCP.md) 
 2. Build the nessesary libaries for Android Studio CTS verifier sample app development
    - make -j8 cts-sensors-tests compatibility-device-util-axt android.test.base_static
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/cts-sensors-tests_intermediates/javalib.jar ~/Downloads/cts-sensors-tests.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/compatibility-device-util-axt_intermediates/javalib.jar ~/Downloads/compatibility-device-util-axt.jar
    - cp out/target/product/generic_x86_64/obj/JAVA_LIBRARIES/android.test.base_static_intermediates/javalib.jar ~/Downloads/android.test.base.jar
 3. Remove mockito-extensions in cts-sensors-tests.jar.
-  - If not removed, it will cause error: "More than one file was found with OS independent path 'mockito-extensions/org.mockito.plugins.MockMaker'."
+   - If not removed, it will cause error: "More than one file was found with OS independent path 'mockito-extensions/org.mockito.plugins.MockMaker'."
+ToDo:
+  - Make script for the GCP VM for uploading jar to bucket
+  - Try Google cloud build e.g. https://github.com/Alwin-Lin/GCP-automation
 ## Manual CTS Verifier
 - Some tests will require multiple tires to pass
 - Average test time is around 4 min
