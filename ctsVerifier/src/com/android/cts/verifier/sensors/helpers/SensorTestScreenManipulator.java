@@ -16,6 +16,7 @@
 
 package com.android.cts.verifier.sensors.helpers;
 
+import com.android.cts.verifier.os.TimeoutResetActivity;
 import com.android.cts.verifier.sensors.base.BaseSensorTestActivity;
 import com.android.cts.verifier.sensors.base.ISensorTestStateContainer;
 
@@ -143,7 +144,7 @@ public class SensorTestScreenManipulator {
         if (hasDeviceAdminFeature()) {
             mDevicePolicyManager.lockNow();
         } else {
-            com.android.cts.verifier.os.TimeoutResetActivity.turnOffScreen(mActivity);
+            TimeoutResetActivity.turnOffScreen(mActivity);
         }
 
         try {

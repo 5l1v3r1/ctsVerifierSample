@@ -21,52 +21,43 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
+import android.os.FileUtils;
+import android.os.ParcelFileDescriptor;
 
 import com.android.compatibility.common.util.FileUtil;
 import com.android.compatibility.common.util.IInvocationResult;
-import com.android.compatibility.common.util.InvocationResult;
 import com.android.compatibility.common.util.ResultHandler;
 import com.android.compatibility.common.util.ZipUtil;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.System;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 /**
  * Background task to generate a report and save it to external storage.
  */
 class ReportExporter extends AsyncTask<Void, Void, String> {
 
+    public static final String REPORT_DIRECTORY = "verifierReports";
+
+    private static final Logger LOG = Logger.getLogger(ReportExporter.class.getName());
     private static final String COMMAND_LINE_ARGS = "";
     private static final String LOG_URL = null;
     private static final String REFERENCE_URL = null;
     private static final String SUITE_NAME_METADATA_KEY = "SuiteName";
     private static final String SUITE_PLAN = "verifier";
     private static final String SUITE_BUILD = "0";
-
-    private static final String REPORT_DIRECTORY = "verifierReports";
     private static final String ZIP_EXTENSION = ".zip";
-
-    protected static final Logger LOG = Logger.getLogger(ReportExporter.class.getName());
-
     private final long START_MS = System.currentTimeMillis();
     private final long END_MS = START_MS;
-
     private final Context mContext;
     private final com.android.cts.verifier.TestListAdapter mAdapter;
 
@@ -94,19 +85,14 @@ class ReportExporter extends AsyncTask<Void, Void, String> {
         File verifierReportsDir = new File(externalStorageDirectory, REPORT_DIRECTORY);
         verifierReportsDir.mkdirs();
 
-        // Dump in downloads to test
-        File downloadStorageDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        File downloadReportsDir = new File(downloadStorageDirectory, REPORT_DIRECTORY);
-        downloadReportsDir.mkdirs();
-
         String suiteName = com.android.cts.verifier.Version.getMetadata(mContext, SUITE_NAME_METADATA_KEY);
         // create a temporary directory for this particular report
-        File tempDir = new File(downloadReportsDir, getReportName(suiteName));
+        File tempDir = new File(verifierReportsDir, getReportName(suiteName));
         tempDir.mkdirs();
 
         // create a File object for a report ZIP file
         File reportZipFile = new File(
-                downloadReportsDir, getReportName(suiteName) + ZIP_EXTENSION);
+                verifierReportsDir, getReportName(suiteName) + ZIP_EXTENSION);
 
         try {
             // Serialize the report
@@ -127,7 +113,24 @@ class ReportExporter extends AsyncTask<Void, Void, String> {
             // delete the temporary directory and its files made for the report
             FileUtil.recursiveDelete(tempDir);
         }
+        saveReportOnInternalStorage(reportZipFile);
         return mContext.getString(R.string.report_saved, reportZipFile.getPath());
+    }
+
+    private void saveReportOnInternalStorage(File reportZipFile) {
+        try {
+            ParcelFileDescriptor pfd = ParcelFileDescriptor.open(
+                    reportZipFile, ParcelFileDescriptor.MODE_READ_ONLY);
+            InputStream is = new ParcelFileDescriptor.AutoCloseInputStream(pfd);
+
+            File verifierDir = mContext.getDir(REPORT_DIRECTORY, Context.MODE_PRIVATE);
+            File verifierReport = new File(verifierDir, reportZipFile.getName());
+            FileOutputStream fos = new FileOutputStream(verifierReport);
+
+            FileUtils.copy(is, fos);
+        } catch (Exception e) {
+            LOG.log(Level.WARNING, "I/O exception writing report to internal storage.", e);
+        }
     }
 
     /**
@@ -158,7 +161,7 @@ class ReportExporter extends AsyncTask<Void, Void, String> {
     private String getReportName(String suiteName) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss", Locale.ENGLISH);
         String date = dateFormat.format(new Date());
-        return String.format( "%s-%s-%s-%s-%s-%s",
+        return String.format("%s-%s-%s-%s-%s-%s",
                 date, suiteName, Build.MANUFACTURER, Build.PRODUCT, Build.DEVICE, Build.ID);
     }
 

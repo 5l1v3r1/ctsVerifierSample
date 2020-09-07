@@ -18,7 +18,6 @@ package com.android.cts.verifier;
 
 import android.content.Context;
 import android.os.Build;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.util.Xml;
 
@@ -77,9 +76,9 @@ class TestResultsReport {
 
     private final Context mContext;
 
-    private final com.android.cts.verifier.TestListAdapter mAdapter;
+    private final TestListAdapter mAdapter;
 
-    TestResultsReport(Context context, com.android.cts.verifier.TestListAdapter adapter) {
+    TestResultsReport(Context context, TestListAdapter adapter) {
         this.mContext = context;
         this.mAdapter = adapter;
     }
@@ -112,10 +111,9 @@ class TestResultsReport {
         DevicePropertyInfo devicePropertyInfo = new DevicePropertyInfo(Build.CPU_ABI,
                 Build.CPU_ABI2, abis, abis32, abis64, Build.BOARD, Build.BRAND, Build.DEVICE,
                 Build.FINGERPRINT, null, Build.ID, Build.MANUFACTURER, Build.MODEL, Build.PRODUCT,
-                referenceFingerprint, Settings.Secure.ANDROID_ID, Build.TAGS, Build.TYPE, versionBaseOs,
+                referenceFingerprint, Build.getSerial(), Build.TAGS, Build.TYPE, versionBaseOs,
                 Build.VERSION.RELEASE, Integer.toString(Build.VERSION.SDK_INT),
                 versionSecurityPatch, Build.VERSION.INCREMENTAL);
-
 
         // add device properties to the result with a prefix tag for each key
         for (Entry<String, String> entry :
@@ -139,14 +137,15 @@ class TestResultsReport {
                 }
                 currentTestResult.setResultStatus(resultStatus);
                 // TODO: report test details with Extended Device Info (EDI) or CTS metrics
-                // String details = mAdapter.getTestDetails(i);
+                String details = mAdapter.getTestDetails(i);
+                currentTestResult.setMessage(details);
 
                 ReportLog reportLog = mAdapter.getReportLog(i);
                 if (reportLog != null) {
                     currentTestResult.setReportLog(reportLog);
                 }
 
-                com.android.cts.verifier.TestResultHistoryCollection historyCollection = mAdapter.getHistoryCollection(i);
+                TestResultHistoryCollection historyCollection = mAdapter.getHistoryCollection(i);
                 if (historyCollection != null) {
                     // Get non-terminal prefixes.
                     Set<String> prefixes = new HashSet<>();
@@ -181,13 +180,13 @@ class TestResultsReport {
 
     private TestStatus getTestResultStatus(int testResult) {
         switch (testResult) {
-            case com.android.cts.verifier.TestResult.TEST_RESULT_PASSED:
+            case TestResult.TEST_RESULT_PASSED:
                 return TestStatus.PASS;
 
-            case com.android.cts.verifier.TestResult.TEST_RESULT_FAILED:
+            case TestResult.TEST_RESULT_FAILED:
                 return TestStatus.FAIL;
 
-            case com.android.cts.verifier.TestResult.TEST_RESULT_NOT_EXECUTED:
+            case TestResult.TEST_RESULT_NOT_EXECUTED:
                 return null;
 
             default:

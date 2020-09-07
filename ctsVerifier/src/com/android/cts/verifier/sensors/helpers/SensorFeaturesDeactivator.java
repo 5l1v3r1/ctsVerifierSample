@@ -34,18 +34,18 @@ import java.lang.reflect.Field;
  * - keep track of the initial state for each sensor feature, so it can be restored at will
  */
 public class SensorFeaturesDeactivator {
-    // Todo: Remove dependecy https://cs.android.com/android/platform/superproject/+/master:frameworks/base/core/java/android/provider/Settings.java;l=7741?q=Settings.Secure.DOZE_ENABLED&ss=android
-    public static final String DOZE_ENABLED = "doze_enabled";
+
     private final ISensorTestStateContainer mStateContainer;
 
-    private final SensorSettingContainer mAirplaneMode = new AirplaneModeSettingContainer();
-    private final SensorSettingContainer mScreenBrightnessMode =
+    private final com.android.cts.verifier.sensors.helpers.SensorSettingContainer mAirplaneMode = new AirplaneModeSettingContainer();
+    private final com.android.cts.verifier.sensors.helpers.SensorSettingContainer mScreenBrightnessMode =
             new ScreenBrightnessModeSettingContainer();
-    private final SensorSettingContainer mAmbientDisplayMode = new AmbientDisplaySettingContainer();
-    private final SensorSettingContainer mAutoRotateScreenMode =
+    private final com.android.cts.verifier.sensors.helpers.SensorSettingContainer mAmbientDisplayMode = new AmbientDisplaySettingContainer();
+    private final com.android.cts.verifier.sensors.helpers.SensorSettingContainer mAutoRotateScreenMode =
             new AutoRotateScreenModeSettingContainer();
-    private final SensorSettingContainer mKeepScreenOnMode = new KeepScreenOnModeSettingContainer();
-    private final SensorSettingContainer mLocationMode = new LocationModeSettingContainer();
+    private final com.android.cts.verifier.sensors.helpers.SensorSettingContainer mKeepScreenOnMode = new KeepScreenOnModeSettingContainer();
+    private final com.android.cts.verifier.sensors.helpers.SensorSettingContainer mLocationMode = new LocationModeSettingContainer();
+    public static final String DOZE_ENABLED = "doze_enabled";
 
     public SensorFeaturesDeactivator(ISensorTestStateContainer stateContainer) {
         mStateContainer = stateContainer;
@@ -91,7 +91,7 @@ public class SensorFeaturesDeactivator {
         mKeepScreenOnMode.captureInitialState();
     }
 
-    private class AirplaneModeSettingContainer extends SensorSettingContainer {
+    private class AirplaneModeSettingContainer extends com.android.cts.verifier.sensors.helpers.SensorSettingContainer {
         public AirplaneModeSettingContainer() {
             super(Settings.ACTION_AIRPLANE_MODE_SETTINGS, R.string.snsr_setting_airplane_mode);
         }
@@ -117,7 +117,7 @@ public class SensorFeaturesDeactivator {
         }
     }
 
-    private class ScreenBrightnessModeSettingContainer extends SensorSettingContainer {
+    private class ScreenBrightnessModeSettingContainer extends com.android.cts.verifier.sensors.helpers.SensorSettingContainer {
         public ScreenBrightnessModeSettingContainer() {
             super(Settings.ACTION_DISPLAY_SETTINGS, R.string.snsr_setting_screen_brightness_mode);
         }
@@ -131,7 +131,7 @@ public class SensorFeaturesDeactivator {
         }
     }
 
-    private class AmbientDisplaySettingContainer extends SensorSettingContainer {
+    private class AmbientDisplaySettingContainer extends com.android.cts.verifier.sensors.helpers.SensorSettingContainer {
         public AmbientDisplaySettingContainer() {
             super(Settings.ACTION_DISPLAY_SETTINGS, R.string.snsr_setting_ambient_display);
         }
@@ -145,7 +145,7 @@ public class SensorFeaturesDeactivator {
         }
     }
 
-    private class AutoRotateScreenModeSettingContainer extends SensorSettingContainer {
+    private class AutoRotateScreenModeSettingContainer extends com.android.cts.verifier.sensors.helpers.SensorSettingContainer {
         public AutoRotateScreenModeSettingContainer() {
             super(Settings.ACTION_ACCESSIBILITY_SETTINGS,
                     R.string.snsr_setting_auto_rotate_screen_mode);
@@ -160,7 +160,7 @@ public class SensorFeaturesDeactivator {
         }
     }
 
-    private class KeepScreenOnModeSettingContainer extends SensorSettingContainer {
+    private class KeepScreenOnModeSettingContainer extends com.android.cts.verifier.sensors.helpers.SensorSettingContainer {
         public KeepScreenOnModeSettingContainer() {
             super(Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS,
                     R.string.snsr_setting_keep_screen_on);
@@ -175,7 +175,7 @@ public class SensorFeaturesDeactivator {
         }
     }
 
-    private class LocationModeSettingContainer extends SensorSettingContainer {
+    private class LocationModeSettingContainer extends com.android.cts.verifier.sensors.helpers.SensorSettingContainer {
         public LocationModeSettingContainer() {
             super(Settings.ACTION_LOCATION_SOURCE_SETTINGS, R.string.snsr_setting_location_mode);
         }

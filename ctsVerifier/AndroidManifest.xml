@@ -18,13 +18,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.android.cts.verifier"
       android:versionCode="5"
-      android:versionName="9.0_r12">
+      android:versionName="10_r5">
 
+    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="29"/>
 
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BODY_SENSORS"/>
@@ -37,6 +40,8 @@
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.REQUEST_PASSWORD_COMPLEXITY" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
@@ -49,6 +54,7 @@
     <uses-feature android:name="android.hardware.vr.high_performance" android:required="false"/>
     <uses-feature android:name="android.software.companion_device_setup" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -58,27 +64,19 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <uses-permission android:name="com.android.providers.tv.permission.WRITE_EPG_DATA" />
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-
-    <!-- Needed by UsbTest tapjacking -->
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
-    <!-- Needed by the Audio Quality Verifier to store the sound samples that will be mailed. -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <!-- Needed for Telecom self-managed ConnectionService tests. -->
     <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
 
@@ -87,20 +85,29 @@
             android:icon="@drawable/icon"
             android:debuggable="true"
             android:largeHeap="true"
-            android:requestLegacyExternalStorage=" true"
+            android:requestLegacyExternalStorage="true"
             android:theme="@android:style/Theme.DeviceDefault">
-
         <uses-library android:name="android.test.runner" />
-
         <meta-data android:name="SuiteName" android:value="CTS_VERIFIER" />
-
         <meta-data android:name="android.telephony.HIDE_VOICEMAIL_SETTINGS_MENU"
             android:value="true"/>
-        <uses-library android:name="android.test.runner"/>
 
-        // Entry point activity
+        <activity android:name=".TestListActivity" android:label="@string/app_name" />
+
+        <activity android:name=".ReportViewerActivity"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:label="@string/report_viewer" />
+        <provider android:name=".TestResultsProvider"
+                android:authorities="com.android.cts.verifier.testresultsprovider"
+                android:grantUriPermissions="true"
+                android:exported="true"
+                android:enabled="true" />
+
+
         <activity-alias android:name=".CtsVerifierActivity" android:label="@string/app_name"
-            android:targetActivity=".TestListActivity">
+                android:targetActivity=".TestListActivity">
+
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -108,29 +115,20 @@
             </intent-filter>
         </activity-alias>
 
+
+
         <activity android:name=".sensors.GyroscopeMeasurementTestActivity"
-            android:label="@string/snsr_gyro_m_test"
-            android:screenOrientation="locked">
+                  android:label="@string/snsr_gyro_m_test"
+                  android:screenOrientation="locked">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.cts.intent.category.MANUAL_TEST"/>
             </intent-filter>
             <meta-data android:name="test_category" android:value="@string/test_category_sensors"/>
             <meta-data android:name="test_required_features"
-                android:value="android.hardware.sensor.gyroscope"/>
+                       android:value="android.hardware.sensor.gyroscope"/>
             <meta-data android:name="test_excluded_features"
-                android:value="android.hardware.type.automotive"/>
+                       android:value="android.hardware.type.automotive"/>
         </activity>
-
-        <activity android:name=".TestListActivity" android:label="@string/app_name" />
-
-        <activity android:name=".ReportViewerActivity"
-                android:configChanges="keyboardHidden|orientation|screenSize"
-                android:label="@string/report_viewer" />
-
-        <provider android:name=".TestResultsProvider"
-                android:authorities="com.android.cts.verifier.testresultsprovider" />
-
     </application>
-
 </manifest>
